@@ -1,0 +1,42 @@
+{
+  "analyses": [
+    {
+      "analysis_id": "DM-AGE-SUMMARY",
+      "dataset": "ADSL",
+      "population": {
+        "where": "SAFFL == 'Y'"
+      },
+      "grouping": [
+        {
+          "variable": "ARM"
+        }
+      ],
+      "variables": [
+        {
+          "name": "AGE",
+          "role": "analysis"
+        }
+      ],
+      "methods": [
+        {
+          "type": "descriptive",
+          "statistics": [
+            "n",
+            "mean",
+            "sd",
+            "median",
+            "p25",
+            "p75",
+            "min",
+            "max"
+          ]
+        }
+      ],
+      "traceability": {
+        "studyid": "XYZ123",
+        "sap_section": "5.1.2",
+        "inputs_version": "ADaM_2025-09-01"
+      }
+    }
+  ]
+}
