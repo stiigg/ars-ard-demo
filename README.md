@@ -8,11 +8,17 @@ It includes:
 - `SAS/ars_to_ard.sas` — SAS program that does the same using `LIBNAME JSON`.
 - `data/ADSL.csv` — a tiny mock ADSL to run the demo out-of-the-box.
 
+## Quick start (Python)
+```bash
+python3 ars_to_ard.py
+```
+Outputs: One ARD CSV per analysis (e.g., `ARD_DM_AGE_SUMMARY.csv`) in the project root with rows for every variable/statistic combination requested by the ARS metadata.  The Python implementation mirrors the original R script so the demo no longer depends on an R runtime (useful for lightweight CI environments).
+
 ## Quick start (R)
 ```bash
 Rscript R/ars_to_ard.R
 ```
-Outputs: One ARD CSV per analysis (e.g., `ARD_DM_AGE_SUMMARY.csv`) in the project root with rows for every variable/statistic combination requested by the ARS metadata.
+Outputs: Identical ARD CSV files, generated using the original R implementation.
 
 ## Quick start (SAS)
 Update the infile paths in `SAS/ars_to_ard.sas` if needed, then run in your SAS environment.
