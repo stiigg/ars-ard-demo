@@ -1,0 +1,23 @@
+{
+  "analyses": [
+    {
+      "analysis_id": "EFF_RESP",
+      "description": "Response rate by visit and arm",
+      "population": {
+        "name": "EFFICACY",
+        "filter": "EFFFL == 'Y'"
+      },
+      "grouping": ["ARM", "AVISIT"],
+      "variables": ["AVAL"],
+      "statistics": ["N", "MEAN"],
+      "derivations": [
+        {
+          "name": "RESP_IND",
+          "expression": "ifelse(AVAL >= 1, 1, 0)",
+          "type": "indicator"
+        }
+      ],
+      "windows": []
+    }
+  ]
+}

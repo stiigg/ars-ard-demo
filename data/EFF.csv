@@ -1,0 +1,7 @@
+USUBJID,PARAMCD,PARAM,AVAL,AVISIT,ARM,EFFFL
+SUBJ001,RESP,Response Indicator,0,Baseline,Placebo,Y
+SUBJ001,RESP,Response Indicator,1,Week 4,Placebo,Y
+SUBJ002,RESP,Response Indicator,0,Baseline,Active,Y
+SUBJ002,RESP,Response Indicator,1,Week 4,Active,Y
+SUBJ003,RESP,Response Indicator,0,Baseline,Active,Y
+SUBJ003,RESP,Response Indicator,1,Week 4,Active,Y

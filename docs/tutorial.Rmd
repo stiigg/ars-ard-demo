@@ -1,0 +1,59 @@
+---
+title: "ARS to ARD Walkthrough"
+author: "Demo Team"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+```
+
+## Overview
+
+This tutorial demonstrates how to:
+
+1. Inspect and validate an ARS metadata file.
+2. Run the R pipeline to generate ARD outputs.
+3. Review provenance metadata and compare R vs SAS results.
+
+## 1. Validate ARS metadata
+
+```{r validate, eval=FALSE}
+library(jsonvalidate)
+validator <- json_validator("schema/ars.schema.json", engine = "ajv")
+validator("ars_age.json")
+```
+
+## 2. Execute the R pipeline
+
+```{r run, eval=FALSE}
+dir.create("out", showWarnings = FALSE)
+source("R/ars_to_ard.R")
+run_ars_to_ard(
+  ars_path = "ars_age.json",
+  output_dir = "out",
+  data_root = "data"
+)
+```
+
+## 3. Inspect generated ARD
+
+```{r inspect, eval=FALSE}
+readr::read_csv("out/ARD_AGE_SUMMARY.csv", show_col_types = FALSE)
+```
+
+## 4. Compare against SAS output (optional)
+
+```{r parity, eval=FALSE}
+source("tests/helpers/parity.R")
+compare_ard(
+  readr::read_csv("out/ARD_AGE_SUMMARY_R.csv", show_col_types = FALSE),
+  readr::read_csv("out/ARD_AGE_SUMMARY_SAS.csv", show_col_types = FALSE)
+)
+```
+
+## Next steps
+
+* Modify `ars_age.json` to add a grouping variable and rerun the pipeline.
+* Explore other specs (`ars_ae.json`, `ars_lab.json`, `ars_eff.json`).
+* Extend the tutorial with your organisation's data and requirements.

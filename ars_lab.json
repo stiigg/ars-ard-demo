@@ -1,0 +1,28 @@
+{
+  "analyses": [
+    {
+      "analysis_id": "LAB_ALT",
+      "description": "ALT change from baseline by visit",
+      "population": {
+        "name": "LAB_POP",
+        "filter": "SAFFL == 'Y'"
+      },
+      "grouping": ["ARM", "VISIT"],
+      "variables": ["LBSTRESN"],
+      "statistics": ["N", "MEAN", "SD"],
+      "windows": [
+        {
+          "name": "BASELINE",
+          "start": "VISIT == 'Baseline'",
+          "end": "VISIT == 'Baseline'"
+        },
+        {
+          "name": "POST",
+          "start": "VISIT != 'Baseline'",
+          "end": null
+        }
+      ],
+      "derivations": []
+    }
+  ]
+}

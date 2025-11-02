@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/schema/ars.schema.json",
+  "title": "Analysis Results Specification",
+  "type": "object",
+  "required": ["analyses"],
+  "properties": {
+    "analyses": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["analysis_id", "population", "variables", "statistics"],
+        "properties": {
+          "analysis_id": { "type": "string", "minLength": 1 },
+          "description": { "type": "string" },
+          "population": {
+            "type": "object",
+            "required": ["filter"],
+            "properties": {
+              "name": { "type": "string" },
+              "filter": { "type": "string", "minLength": 1 }
+            },
+            "additionalProperties": false
+          },
+          "grouping": {
+            "type": "array",
+            "items": { "type": "string", "minLength": 1 },
+            "uniqueItems": true
+          },
+          "variables": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "type": "string", "minLength": 1 }
+          },
+          "statistics": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "type": "string", "minLength": 1 }
+          },
+          "windows": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["name"],
+              "properties": {
+                "name": { "type": "string" },
+                "start": { "type": ["string", "null"] },
+                "end": { "type": ["string", "null"] }
+              },
+              "additionalProperties": false
+            }
+          },
+          "derivations": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["name", "expression"],
+              "properties": {
+                "name": { "type": "string" },
+                "expression": { "type": "string" },
+                "type": { "type": "string" }
+              },
+              "additionalProperties": false
+            }
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

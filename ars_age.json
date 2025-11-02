@@ -1,0 +1,17 @@
+{
+  "analyses": [
+    {
+      "analysis_id": "AGE_SUMMARY",
+      "description": "Summaries of age by arm",
+      "population": {
+        "name": "SAFETY",
+        "filter": "SAFFL == 'Y'"
+      },
+      "grouping": ["ARM"],
+      "variables": ["AGE"],
+      "statistics": ["N", "MEAN", "SD", "MEDIAN", "MIN", "MAX"],
+      "derivations": [],
+      "windows": []
+    }
+  ]
+}

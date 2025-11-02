@@ -1,0 +1,23 @@
+{
+  "analyses": [
+    {
+      "analysis_id": "AE_SERIOUS",
+      "description": "Count of serious AEs by arm and severity",
+      "population": {
+        "name": "SAFETY",
+        "filter": "SAFFL == 'Y'"
+      },
+      "grouping": ["ARM", "AESEV"],
+      "variables": ["AESER"],
+      "statistics": ["N"],
+      "derivations": [
+        {
+          "name": "SERIOUS",
+          "expression": "ifelse(AESER == 'Y', 1, 0)",
+          "type": "indicator"
+        }
+      ],
+      "windows": []
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+USUBJID,LBTESTCD,LBTEST,LBSTRESN,LBSTRESU,VISIT,LBDTC,SAFFL,ARM
+SUBJ001,ALT,Alanine Aminotransferase,25,U/L,Baseline,2024-01-01,Y,Placebo
+SUBJ001,ALT,Alanine Aminotransferase,30,U/L,Week 4,2024-02-01,Y,Placebo
+SUBJ002,ALT,Alanine Aminotransferase,27,U/L,Baseline,2024-01-01,Y,Active
+SUBJ002,ALT,Alanine Aminotransferase,35,U/L,Week 4,2024-02-01,Y,Active
+SUBJ003,ALT,Alanine Aminotransferase,26,U/L,Baseline,2024-01-01,Y,Active
+SUBJ003,ALT,Alanine Aminotransferase,33,U/L,Week 4,2024-02-01,Y,Active
