@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/schemas/ard.schema.json",
+  "type": "object",
+  "required": ["tables","metadata"],
+  "properties": {
+    "metadata": {
+      "type": "object",
+      "required": ["ENGINE","ENGINE_VERSION","RUN_DATETIME","SEED"],
+      "properties": {
+        "ENGINE":{"type":"string"},
+        "ENGINE_VERSION":{"type":"string"},
+        "RUN_DATETIME":{"type":"string","format":"date-time"},
+        "GIT_SHA":{"type":["string","null"]},
+        "INPUTS":{"type":"array","items":{"type":"string"}},
+        "ARS_SPEC_VERSION":{"type":["string","null"]},
+        "DATA_HASHES":{"type":"object"},
+        "SEED":{"type":"integer"}
+      }
+    },
+    "tables": { "type": "object", "additionalProperties": { "type": "array" } }
+  }
+}
