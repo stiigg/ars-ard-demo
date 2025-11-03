@@ -7,9 +7,11 @@ renv/library/
 __pycache__/
 *.pyc
 
-# Outputs and artifacts
+# Engine outputs
 out/
 out_sas/
 out_py/
-snapshots/**/*.tmp
 *.log
+
+# Test artifacts
+snapshots/**/*.tmp

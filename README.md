@@ -7,10 +7,11 @@ schema validation and diffing support.
 ## Quick start
 
 ```bash
-make validate   # ensure ars.json conforms to schema/ars.schema.json
-make run        # run R engine → out/
-make run-sas    # run SAS engine → out_sas/
-make diff       # compare ARDs between R and SAS
+make validate       # no-deps ARS validation (works in locked CI)
+make run            # R engine → out/
+# when SAS runner is available:
+make run-sas        # SAS engine → out_sas/
+make diff           # compare ARD parity (requires pandas/numpy locally)
 ```
 
 Outputs live under `out/` (R) and `out_sas/` (SAS) with filenames like `ARD_DM_AGE_SUMMARY.csv`.
