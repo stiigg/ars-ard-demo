@@ -1,0 +1,15 @@
+# R / Python / outputs
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+renv/library/
+__pycache__/
+*.pyc
+
+# Outputs and artifacts
+out/
+out_sas/
+out_py/
+snapshots/**/*.tmp
+*.log
