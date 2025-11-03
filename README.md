@@ -1,29 +1,35 @@
-
 # ARS → ARD Demo (R & SAS)
 
-This bundle shows a minimal metadata-driven pipeline using CDISC ARS (JSON) to produce ARD.
-It includes:
-- `ars.json` — an example ARS spec describing a single analysis (AGE by ARM from ADSL).
-- `R/ars_to_ard.R` — R script that reads `ars.json`, validates populations/groupings, computes the requested stats per analysis variable, and writes ARD.
-- `SAS/ars_to_ard.sas` — SAS program that does the same using `LIBNAME JSON`.
-- `data/ADSL.csv` — a tiny mock ADSL to run the demo out-of-the-box.
+Minimal metadata-driven pipeline that turns a CDISC ARS JSON spec into Analysis Results Datasets (ARD).
+R is the primary engine with SAS used for regulated parity checks, while Python utilities provide
+schema validation and diffing support.
 
-## Quick start (Python)
+## Quick start
+
 ```bash
-python3 ars_to_ard.py
+make validate   # ensure ars.json conforms to schema/ars.schema.json
+make run        # run R engine → out/
+make run-sas    # run SAS engine → out_sas/
+make diff       # compare ARDs between R and SAS
 ```
-Outputs: One ARD CSV per analysis (e.g., `ARD_DM_AGE_SUMMARY.csv`) in the project root with rows for every variable/statistic combination requested by the ARS metadata.  The Python implementation mirrors the original R script so the demo no longer depends on an R runtime (useful for lightweight CI environments).
 
-## Quick start (R)
-```bash
-Rscript R/ars_to_ard.R
-```
-Outputs: Identical ARD CSV files, generated using the original R implementation.
+Outputs live under `out/` (R) and `out_sas/` (SAS) with filenames like `ARD_DM_AGE_SUMMARY.csv`.
+Each ARD row includes the requested statistics and lineage fields (`ENGINE`, `ENGINE_VERSION`, `RUN_DATETIME`).
 
-## Quick start (SAS)
-Update the infile paths in `SAS/ars_to_ard.sas` if needed, then run in your SAS environment.
-Outputs: One ARD CSV per analysis (e.g., `ARD_DM_AGE_SUMMARY.csv`) in the project root.
+## Repository layout
 
-## Notes
-- Replace `data/ADSL.csv` with your real ADSL (same columns needed: USUBJID, ARM, AGE, SAFFL).
-- Extend `ars.json` with more analyses (e.g., AE incidence) and add methods as required.
+- `ars.json` — demo ARS spec (AGE by ARM from ADSL)
+- `schema/ars.schema.json` — minimal JSON Schema used by `make validate`
+- `R/ars_to_ard.R` — CLI driver for the R engine
+- `SAS/macros/ars_macros.sas` + `SAS/ars_to_ard.sas` — SAS implementation and helper macros
+- `python/ars_to_ard.py` — optional Python engine (kept for experimentation)
+- `scripts/` — helper utilities (`run.sh`, `validate_ars.py`, `compare_ard.py`)
+- `data/ADSL.csv` — mock input dataset
+
+## Continuous integration
+
+- `.github/workflows/ci-r.yml` runs the R engine on GitHub-hosted Linux runners
+- `.github/workflows/ci-sas.yml` targets a self-hosted runner with SAS for parity checks
+
+Artifacts from both engines can be compared with `make diff`, helping ensure numerical parity
+between implementations.

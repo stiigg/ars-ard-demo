@@ -1,41 +1,23 @@
 {
+  "version": "0.1.0",
   "analyses": [
     {
-      "analysis_id": "DM-AGE-SUMMARY",
+      "analysis_id": "DM_AGE_SUMMARY",
       "dataset": "ADSL",
       "population": {
-        "where": "SAFFL == 'Y'"
+        "filter": "SAFFL == \"Y\""
       },
-      "grouping": [
-        {
-          "variable": "ARM"
+      "variable": {
+        "name": "AGE",
+        "label": "Age (years)"
+      },
+      "group_by": ["ARM"],
+      "statistics": ["N", "MEAN", "SD", "MEDIAN", "Q1", "Q3", "MIN", "MAX"],
+      "presentation": {
+        "title": "Summary of Age by Treatment Arm",
+        "rounding": {
+          "decimals": 1
         }
-      ],
-      "variables": [
-        {
-          "name": "AGE",
-          "role": "analysis"
-        }
-      ],
-      "methods": [
-        {
-          "type": "descriptive",
-          "statistics": [
-            "n",
-            "mean",
-            "sd",
-            "median",
-            "p25",
-            "p75",
-            "min",
-            "max"
-          ]
-        }
-      ],
-      "traceability": {
-        "studyid": "XYZ123",
-        "sap_section": "5.1.2",
-        "inputs_version": "ADaM_2025-09-01"
       }
     }
   ]

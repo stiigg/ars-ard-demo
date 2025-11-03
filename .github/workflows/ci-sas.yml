@@ -1,0 +1,15 @@
+name: SAS Engine
+on: [push, pull_request]
+jobs:
+  sas:
+    runs-on: [self-hosted, sas]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run SAS
+        run: |
+          chmod +x scripts/run.sh
+          ENGINE=sas bash scripts/run.sh ars.json data/ADSL.csv out_sas
+      - name: Diff R vs SAS
+        run: |
+          python3 -m pip install pandas numpy
+          python3 scripts/compare_ard.py out out_sas || (echo "::error ::ARD parity failed" && exit 1)
