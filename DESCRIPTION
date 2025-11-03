@@ -1,0 +1,15 @@
+Package: arsarddemo
+Type: Package
+Title: CI deps for ars-ard-demo
+Version: 0.0.1
+Description: Dependency manifest for CI.
+License: MIT
+Encoding: UTF-8
+Depends: R (>= 4.1)
+Imports:
+    argparse (>= 2.2.0),
+    jsonlite (>= 1.8.0),
+    readr (>= 2.1.0),
+    dplyr (>= 1.1.0),
+    tidyr (>= 1.2.0),
+    rlang (>= 1.1.0)
