@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/schemas/ars.schema.json",
+  "type": "object",
+  "required": ["version", "sources", "analyses"],
+  "properties": {
+    "version": { "type": "string" },
+    "sources": {
+      "type": "array",
+      "items": { "type": "object", "required": ["name"], "properties": { "name": {"type":"string"} } }
+    },
+    "population": { "type": "object" },
+    "joins": { "type": "array" },
+    "analyses": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["variable"],
+        "properties": {
+          "id": {"type":"string"},
+          "source": {"type":"string"},
+          "group_by": {"type":"array", "items":{"type":"string"}},
+          "variable": {"type":"string"},
+          "statistics": {"type":"array","items":{"type":"string"}}
+        }
+      }
+    }
+  }
+}

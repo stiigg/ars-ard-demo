@@ -1,0 +1,62 @@
+name: ars-ard-ci
+
+on:
+  push: { branches: [ main ] }
+  pull_request:
+
+jobs:
+  r-engine:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: r-lib/actions/setup-r@v2
+      - name: Install R deps
+        run: Rscript -e 'install.packages(c("jsonlite","dplyr","tidyr","readr","data.table","stringr","purrr","tibble"))'
+      - name: Run R engine
+        run: Rscript -e 'source("R/ars_to_ard.R"); run_ars("tests/specs/simple.json","tests/data","out")'
+      - uses: actions/upload-artifact@v4
+        with: { name: out_r, path: out }
+
+  python-engine:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.11' }
+      - name: Install Python deps
+        run: pip install -r requirements.txt || true
+      - name: Run Python engine
+        run: python -m python.ars_runtime.cli --spec tests/specs/simple.json --in tests/data --out out_py
+      - uses: actions/upload-artifact@v4
+        with: { name: out_py, path: out_py }
+
+  sas-engine:
+    runs-on: self-hosted  # label your SAS runner
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run SAS engine
+        run: |
+          mkdir -p out_sas
+          sas SAS/ars_to_ard.sas -set SPEC tests/specs/simple.json -set IN tests/data -set OUT out_sas
+      - uses: actions/upload-artifact@v4
+        with: { name: out_sas, path: out_sas }
+
+  parity:
+    needs: [r-engine, python-engine, sas-engine]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with: { name: out_r, path: out_r }
+      - uses: actions/download-artifact@v4
+        with: { name: out_py, path: out_py }
+      - uses: actions/download-artifact@v4
+        with: { name: out_sas, path: out_sas }
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.11' }
+      - name: Install parity tools
+        run: pip install pandas numpy jinja2
+      - name: Compare ARDs
+        run: python python/compare_ard.py --r out_r --py out_py --sas out_sas --report parity_report.html
+      - uses: actions/upload-artifact@v4
+        with: { name: parity_report, path: parity_report.html }

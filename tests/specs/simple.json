@@ -1,0 +1,9 @@
+{
+  "version": "0.1",
+  "sources": [{ "name": "ADSL" }],
+  "population": { "where": "SAFFL == \"Y\"" },
+  "analyses": [
+    { "id": "AGE_BY_ARM", "source": "ADSL", "group_by": ["ARM"], "variable": "AGE",
+      "statistics": ["n","mean","sd","median","q1","q3","min","max","se","cv"] }
+  ]
+}
